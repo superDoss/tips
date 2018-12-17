@@ -1,0 +1,17 @@
+{
+    "version": "2.1.0",
+    "command": "dotnet",
+    "isShellCommand": true,
+    "args": [],
+    "options":  {
+        "cwd": "${workspaceRoot}/"
+    },
+    "tasks": [
+        {
+            "taskName": "build",
+            "args": [ ],
+            "isBuildCommand": true,
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
