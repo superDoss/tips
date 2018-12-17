@@ -15,10 +15,16 @@ namespace Tips.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Tips() 
         {
-            ViewData["Message"] = "Your application description page.";
-
+            return View();
+        }
+        public IActionResult Categories() 
+        {
+            return View();
+        }
+        public IActionResult Profile() 
+        {
             return View();
         }
 
