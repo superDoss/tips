@@ -22,19 +22,21 @@ namespace Tips.Controllers
         // GET: Tips
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Tips.ToListAsync());
+            var tipsContext = _context.Tips.Include(t => t.User);
+            return View(await tipsContext.ToListAsync());
         }
 
         // GET: Tips/Details/5
-        public async Task<IActionResult> Details(long? Id)
+        public async Task<IActionResult> Details(int? id)
         {
-            if (Id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var tip = await _context.Tips
-                .FirstOrDefaultAsync(m => m.Id == Id);
+                .Include(t => t.User)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (tip == null)
             {
                 return NotFound();
@@ -46,6 +48,7 @@ namespace Tips.Controllers
         // GET: Tips/Create
         public IActionResult Create()
         {
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FirstName");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace Tips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] Tip tip)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,UserId,CreateDate,ImagePath,VideoPath")] Tip tip)
         {
             if (ModelState.IsValid)
             {
@@ -62,22 +65,24 @@ namespace Tips.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FirstName", tip.UserId);
             return View(tip);
         }
 
         // GET: Tips/Edit/5
-        public async Task<IActionResult> Edit(long? Id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (Id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var tip = await _context.Tips.FindAsync(Id);
+            var tip = await _context.Tips.FindAsync(id);
             if (tip == null)
             {
                 return NotFound();
             }
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FirstName", tip.UserId);
             return View(tip);
         }
 
@@ -86,9 +91,9 @@ namespace Tips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long Id, [Bind("Id")] Tip tip)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,UserId,CreateDate,ImagePath,VideoPath")] Tip tip)
         {
-            if (Id != tip.Id)
+            if (id != tip.Id)
             {
                 return NotFound();
             }
@@ -113,19 +118,21 @@ namespace Tips.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FirstName", tip.UserId);
             return View(tip);
         }
 
         // GET: Tips/Delete/5
-        public async Task<IActionResult> Delete(long? Id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (Id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var tip = await _context.Tips
-                .FirstOrDefaultAsync(m => m.Id == Id);
+                .Include(t => t.User)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (tip == null)
             {
                 return NotFound();
@@ -137,17 +144,17 @@ namespace Tips.Controllers
         // POST: Tips/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long Id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tip = await _context.Tips.FindAsync(Id);
+            var tip = await _context.Tips.FindAsync(id);
             _context.Tips.Remove(tip);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TipExists(long Id)
+        private bool TipExists(int id)
         {
-            return _context.Tips.Any(e => e.Id == Id);
+            return _context.Tips.Any(e => e.Id == id);
         }
     }
 }
