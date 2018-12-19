@@ -26,15 +26,15 @@ namespace Tips.Controllers
         }
 
         // GET: Tips/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> Details(long? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return NotFound();
             }
 
             var tip = await _context.Tips
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == Id);
             if (tip == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace Tips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id")] Tip tip)
+        public async Task<IActionResult> Create([Bind("Id")] Tip tip)
         {
             if (ModelState.IsValid)
             {
@@ -66,14 +66,14 @@ namespace Tips.Controllers
         }
 
         // GET: Tips/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(long? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return NotFound();
             }
 
-            var tip = await _context.Tips.FindAsync(id);
+            var tip = await _context.Tips.FindAsync(Id);
             if (tip == null)
             {
                 return NotFound();
@@ -86,9 +86,9 @@ namespace Tips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("id")] Tip tip)
+        public async Task<IActionResult> Edit(long Id, [Bind("Id")] Tip tip)
         {
-            if (id != tip.id)
+            if (Id != tip.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace Tips.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TipExists(tip.id))
+                    if (!TipExists(tip.Id))
                     {
                         return NotFound();
                     }
@@ -117,15 +117,15 @@ namespace Tips.Controllers
         }
 
         // GET: Tips/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(long? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return NotFound();
             }
 
             var tip = await _context.Tips
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == Id);
             if (tip == null)
             {
                 return NotFound();
@@ -137,17 +137,17 @@ namespace Tips.Controllers
         // POST: Tips/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(long Id)
         {
-            var tip = await _context.Tips.FindAsync(id);
+            var tip = await _context.Tips.FindAsync(Id);
             _context.Tips.Remove(tip);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TipExists(long id)
+        private bool TipExists(long Id)
         {
-            return _context.Tips.Any(e => e.id == id);
+            return _context.Tips.Any(e => e.Id == Id);
         }
     }
 }
