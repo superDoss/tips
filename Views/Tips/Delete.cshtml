@@ -11,10 +11,46 @@
     <h4>Tip</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VideoPath)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VideoPath)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="id" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>

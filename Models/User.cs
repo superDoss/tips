@@ -27,5 +27,6 @@ namespace Tips.Models
         public ICollection<Tip> Tips { get; set; }
         public ICollection<TipRating> TipRatings { get; set; }
         public ICollection<UserRating> UserRatings { get; set; }
+        public ICollection<UserRating> RatedUserRatings { get; set; }
     }
 }
