@@ -50,7 +50,7 @@ video {
     z-index: 1;
     color: white;
     left: 30%;
-    top: 36%;
+    top: 28%;
     font-size: 1.5em;
     font-weight: bolder;
     background-color: rgba(0,0,0,.3);
@@ -61,4 +61,27 @@ video {
 .logo-text {
     color: yellow;
     font-size: 1.6em;
+}
+
+.hero-link {
+    color:yellow;
+}
+.hero-link:hover {
+    color:yellow;
+    text-decoration: none;
+}
+.register-or-login {
+    font-size: .7em;
+}
+
+.thumb-width {
+    width: 280px;
+}
+.tip-text {
+    color: white;
+    position: absolute;
+    overflow: hidden;
+    height: 400px;
+    padding: 1em;
+    text-shadow: 2px 2px black;
 }

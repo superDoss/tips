@@ -10,11 +10,122 @@
   <div class="text">
     <p>
         <b>Welcome to <span class="logo-text">Tips.</span></b> <br>
-        The number one tips sharing platform.
+        The number one tips sharing platform. <br>
+        <span class="register-or-login">to start 
+        <a asp-controller="Users" asp-action="Create" class="hero-link">Register</a>
+        or 
+        <a asp-controller="Users" asp-action="Create" class="hero-link">Sign in</a>
+        .</span>
     </p>  
   </div>
 </header>
 
 <section>
-    
+  <div class="row random tips">
+    <blockquote>
+      <h3>Random tips:</h3>
+    </blockquote>
+    <div class="col-xs-6 col-md-3">
+      <a href="#" class="thumbnail thumb-width">
+        <div class="tip-text">
+          text here
+          Occaecat quis veniam et ad culpa aute pariatur elit.
+        </div>
+        <canvas id="myCanvas1" width="270" height="400"></canvas>
+      </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <a href="#" class="thumbnail thumb-width">
+        <div class="tip-text">
+          text here
+          Occaecat quis veniam et ad culpa aute pariatur elit.
+        </div>
+        <canvas id="myCanvas2" width="270" height="400"></canvas>
+      </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <a href="#" class="thumbnail thumb-width">
+        <div class="tip-text">
+          text here
+          Occaecat quis veniam et ad culpa aute pariatur elit.
+        </div>
+        <canvas id="myCanvas3" width="270" height="400"></canvas>
+      </a>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <a href="#" class="thumbnail thumb-width">
+        <div class="tip-text">
+          text here
+          Occaecat quis veniam et ad culpa aute pariatur elit.
+        </div>
+        <canvas id="myCanvas4" width="270" height="400"></canvas>
+      </a>
+    </div>
+  </div>
+
+  <div class="row random categories">
+    <blockquote>
+      <h3>Random categories:</h3>
+    </blockquote>
+
+    <div class="col-xs-6 col-md-3">
+      <div class="category-container">
+        <h4 class="text-primary">Category Name</h4>
+        <p class="text-muted">
+          category description
+          Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
+        </p>
+      </div>
+    </div> 
+    <div class="col-xs-6 col-md-3">
+      <div class="category-container">
+        <h4 class="text-primary">Category Name</h4>
+        <p class="text-muted">
+          category description
+          Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
+        </p>
+      </div>
+    </div> 
+    <div class="col-xs-6 col-md-3">
+      <div class="category-container">
+        <h4 class="text-primary">Category Name</h4>
+        <p class="text-muted">
+          category description
+          Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
+        </p>
+      </div>
+    </div> 
+    <div class="col-xs-6 col-md-3">
+      <div class="category-container">
+        <h4 class="text-primary">Category Name</h4>
+        <p class="text-muted">
+          category description
+          Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
+        </p>
+      </div>
+    </div> 
+  </div>
 </section>
+
+<script>
+
+  var c = document.getElementById("myCanvas1");
+  var ctx = c.getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(0, 0, c.width, c.height);
+
+  var c = document.getElementById("myCanvas2");
+  var ctx = c.getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(0, 0, c.width, c.height);
+
+  var c = document.getElementById("myCanvas3");
+  var ctx = c.getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(0, 0, c.width, c.height);
+
+  var c = document.getElementById("myCanvas4");
+  var ctx = c.getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(0, 0, c.width, c.height);
+</script>
