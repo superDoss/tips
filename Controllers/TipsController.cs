@@ -57,7 +57,7 @@ namespace Tips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,UserId,CreateDate,ImagePath,VideoPath")] Tip tip)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,UserId,CreateDate,ImagePath,VideoPath,Location")] Tip tip)
         {
             if (ModelState.IsValid)
             {

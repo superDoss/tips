@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tips.Database;
 
 namespace Tips.Migrations
 {
     [DbContext(typeof(TipsContext))]
-    partial class TipsContextModelSnapshot : ModelSnapshot
+    [Migration("20190306144923_loaction_to_tips")]
+    partial class loaction_to_tips
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

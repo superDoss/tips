@@ -18,7 +18,7 @@ namespace Tips.Models
         public DateTime CreateDate { get; set; }
         public string ImagePath { get; set; }
         public string VideoPath { get; set; }
-
+        public string Location { get; set; }
         public User User { get; set; }
         public ICollection<TipCategory> TipCategories { get; set; }
         public ICollection<TipRating> TipRatings { get; set; }
