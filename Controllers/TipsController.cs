@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Tips.Database;
 using Tips.Models;
+using Tweetinvi;
 
 namespace Tips.Controllers
 {
@@ -63,6 +64,8 @@ namespace Tips.Controllers
             {
                 _context.Add(tip);
                 await _context.SaveChangesAsync();
+
+                Tweet.PublishTweet($"{tip.Title}: {tip.Content}\nhttps://localhost:5001/tips/Details/{tip.Id}");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "FirstName", tip.UserId);

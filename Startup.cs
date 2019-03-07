@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Tips.Database;
+using Tweetinvi;
 
 namespace Tips
 {
@@ -63,6 +64,9 @@ namespace Tips
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // Set up your credentials (https://apps.twitter.com)
+            Auth.SetUserCredentials("4QHqkHqmh94vUoeKeCE1mrk4k", "e1v71V8BUIM6uaiEsRUIsjB5YNIMBHvDQaPoKXy5DK4BMdiymB", "1102497685834264577-lzZz2IOxFE61qpxC5KSTKiomKMzbLR", "4pHqneGGVTJMUBMrUWc8LKEYB4gBY6LGZYdCxFnPfmvDQ");
         }
     }
 }
