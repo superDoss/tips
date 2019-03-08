@@ -20,9 +20,6 @@ public static class SeedAdminUser
             {
                 userManager.AddToRoleAsync(user, "Admin").Wait();
             }
-            else{
-                var x = 1;
-            }
         }       
     }   
 }
