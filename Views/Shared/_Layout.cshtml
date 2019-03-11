@@ -6,7 +6,9 @@
     <title>@ViewData["Title"] - Tips</title>
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap-star-rating/star-rating.min.js"></script>
-
+        <script>
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+        </script>
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -43,7 +45,9 @@
             </div>
         </div>
     </nav>
-
+    <div class="conteiner weatherwidget">
+        <a class="weatherwidget-io" href="https://forecast7.com/he/31d0534d85/israel/" data-label_1="ישראל" data-label_2="מזג אוויר" data-icons="Climacons Animated" data-theme="weather_one" >ישראל מזג אוויר</a>
+    </div>
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">

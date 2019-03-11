@@ -85,3 +85,12 @@ video {
     padding: 1em;
     text-shadow: 2px 2px black;
 }
+.weatherwidget {
+    width: 14%;
+    position: absolute;
+    top: 100px;
+    left: 20px;
+}
+.weatherwidget-io {
+    border-radius: 17px;
+}
