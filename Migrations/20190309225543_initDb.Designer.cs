@@ -9,14 +9,14 @@ using Tips.Database;
 namespace Tips.Migrations
 {
     [DbContext(typeof(TipsContext))]
-    [Migration("20181219193543_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190309225543_initDb")]
+    partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
 
             modelBuilder.Entity("Tips.Models.Category", b =>
                 {
@@ -104,8 +104,6 @@ namespace Tips.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Admin");
-
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("Email");
@@ -118,7 +116,7 @@ namespace Tips.Migrations
                         .IsRequired()
                         .HasMaxLength(30);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("SysUserId");
 
                     b.HasKey("Id");
 
