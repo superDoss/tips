@@ -11,11 +11,6 @@
     <p>
         <b>Welcome to <span class="logo-text">Tips.</span></b> <br>
         The number one tips sharing platform. <br>
-        <span class="register-or-login">to start 
-        <a asp-controller="Users" asp-action="Create" class="hero-link">Register</a>
-        or 
-        <a asp-controller="Users" asp-action="Create" class="hero-link">Sign in</a>
-        .</span>
     </p>  
   </div>
 </header>
@@ -74,7 +69,9 @@
 
     <div class="col-xs-6 col-md-3">
       <div class="category-container">
-        <h4 class="text-primary">Category Name</h4>
+        <a href="#">
+          <h4 class="text-primary">Category Name</h4>
+        </a>
         <p class="text-muted">
           category description
           Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
@@ -84,7 +81,9 @@
     </div> 
     <div class="col-xs-6 col-md-3">
       <div class="category-container">
-        <h4 class="text-primary">Category Name</h4>
+        <a href="#">
+          <h4 class="text-primary">Category Name</h4>
+        </a>
         <p class="text-muted">
           category description
           Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
@@ -94,7 +93,9 @@
     </div> 
     <div class="col-xs-6 col-md-3">
       <div class="category-container">
-        <h4 class="text-primary">Category Name</h4>
+        <a href="#">
+          <h4 class="text-primary">Category Name</h4>
+        </a>
         <p class="text-muted">
           category description
           Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
@@ -104,7 +105,9 @@
     </div> 
     <div class="col-xs-6 col-md-3">
       <div class="category-container">
-        <h4 class="text-primary">Category Name</h4>
+       <a href="#">
+          <h4 class="text-primary">Category Name</h4>
+        </a>
         <p class="text-muted">
           category description
           Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
@@ -116,7 +119,6 @@
 </section>
 
 <script>
-    // with plugin options (do not attach the CSS class "rating" to your input if using this approach)
     $("#tip1-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
     $("#tip2-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
     $("#tip3-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
@@ -146,4 +148,8 @@
     var ctx = c.getContext("2d");
     ctx.fillStyle = "blue";
     ctx.fillRect(0, 0, c.width, c.height);
+
+    $.get("https://localhost:5001/api/tips", function( data ) {
+      console.log(data)
+    });
 </script>

@@ -10,6 +10,7 @@ using Tips.Models;
 
 namespace Tips.Controllers
 {
+    
     public class UserRatingsController : Controller
     {
         private readonly TipsContext _context;

@@ -8,6 +8,7 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    /* margin-left: 15.6%; */
 }
 
 /* Carousel */
@@ -84,4 +85,13 @@ video {
     height: 400px;
     padding: 1em;
     text-shadow: 2px 2px black;
+}
+.weatherwidget {
+    width: 100%;
+    /* position: absolute;
+    top: 100px;
+    left: 1.3%; */
+}
+.weatherwidget-io {
+    /* border-radius: 17px; */
 }

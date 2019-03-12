@@ -11,6 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Tips.Database;
+using Tweetinvi;
+using Tips.Helpers;
+using Microsoft.AspNetCore.Identity;
 
 namespace Tips
 {
@@ -41,7 +44,7 @@ namespace Tips
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<IdentityUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -55,7 +58,10 @@ namespace Tips
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
+
+            SeedAdminUser.SeedUsers(userManager);
 
             app.UseMvc(routes =>
             {
@@ -63,6 +69,9 @@ namespace Tips
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // Set up your credentials (https://apps.twitter.com)
+            Auth.SetUserCredentials("4QHqkHqmh94vUoeKeCE1mrk4k", "e1v71V8BUIM6uaiEsRUIsjB5YNIMBHvDQaPoKXy5DK4BMdiymB", "1102497685834264577-lzZz2IOxFE61qpxC5KSTKiomKMzbLR", "4pHqneGGVTJMUBMrUWc8LKEYB4gBY6LGZYdCxFnPfmvDQ");
         }
     }
 }

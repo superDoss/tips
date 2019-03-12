@@ -6,7 +6,9 @@
     <title>@ViewData["Title"] - Tips</title>
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap-star-rating/star-rating.min.js"></script>
-
+        <script>
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+        </script>
     <environment include="Development">
         <script src="~/js/location.js"></script>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -34,17 +36,24 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-page="/Index">Home</a></li>
-                    <li><a asp-page="/Tips">Tips</a></li>
-                    <li><a asp-page="/Categories">Categories</a></li>
-                    <li><a asp-controller="Users" asp-action="Create">Profile</a></li>
-                    <li><a asp-page="/Contact">Contact</a></li>
+                    <li><a asp-controller="Home">Home</a></li>
+                    <li><a asp-controller="Users">Profile</a></li>
+                    <li><a asp-controller="Tips">My Tips</a></li>
+                    <li><a asp-controller="Stat">Statistics</a></li>
+                    <li><a asp-controller="contact">Contact</a></li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li><a asp-page="/Contact">Management</a></li>
+                    }
                 </ul>
+                 <partial name="_LoginPartial" />
             </div>
         </div>
     </nav>
-
     <partial name="_CookieConsentPartial" />
+    <div class="conteiner weatherwidget">
+        <a class="weatherwidget-io" href="https://forecast7.com/he/31d0534d85/israel/" data-label_1="ישראל" data-label_2="מזג אוויר" data-icons="Climacons Animated" data-theme="beige" >ישראל מזג אוויר</a>
+    </div>
 
     <div class="container body-content">
         @RenderBody()
