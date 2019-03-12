@@ -46,7 +46,17 @@
         <dd>
             @Html.DisplayFor(model => model.User.FirstName)
         </dd>
+        <div id="hide" style="display:none">
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+            <dd id="tipLocation">
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+        </div>
     </dl>
+</div>
+<div id="map">
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
