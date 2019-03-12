@@ -21,13 +21,28 @@ namespace Tips.api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tip>>> GetTips()
         {
-            return await _context.Tips.Take(5).ToListAsync();
+            return await _context.Tips.OrderByDescending(x => x.CreateDate).Take(5).ToListAsync();
         }
 
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<Tip>>> GetTips(TipSearchReq req)
         {
-            return await _context.Tips.Take(5).ToListAsync();
+            var result = _context.Tips.AsQueryable();
+
+            if (req.Username != "")
+            {
+                result = result.Where(tip => tip.User.fullName == req.Username);
+            }
+
+            if (req.Category != "")
+            {
+                result = result.Where(tip => tip.TipCategories.Where(ctgr => ctgr.Category.Name == req.Category).Any());
+            }
+
+            result = result.Where(tip => tip.TipRatings.Where(rtg => rtg.RateValue >= req.Rate).Any());
+            
+
+            return await result.OrderByDescending(x => x.CreateDate).Take(5).ToListAsync();
         }
     }
 }
