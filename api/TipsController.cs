@@ -36,10 +36,10 @@ namespace Tips.api
 
             if (req.Category != "")
             {
-                result = result.Where(tip => tip.TipCategories.Where(ctgr => ctgr.Category.Name == req.Category).Any());
+                result = result.Where(tip => tip.TipCategories.Any(ctgr => ctgr.Category.Name == req.Category));
             }
 
-            result = result.Where(tip => tip.TipRatings.Where(rtg => rtg.RateValue >= req.Rate).Any());
+            result = result.Where(tip => tip.TipRatings.Any(rtg => rtg.RateValue >= req.Rate));
             
 
             return await result.OrderByDescending(x => x.CreateDate).Take(5).ToListAsync();

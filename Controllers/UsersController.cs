@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,19 +12,36 @@ using Tips.Models;
 
 namespace Tips.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly TipsContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UsersController(TipsContext context)
+        public UsersController(TipsContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Users
+        [Authorize(Roles="Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Users.ToListAsync());
+        }
+
+        public RedirectResult Profile()
+        {
+            var sysUserId = _userManager.GetUserId(User);
+            if (_context.Users.Any(u => u.SysUserId == sysUserId))
+            {
+                return Redirect("Details/" + _context.Users.First(u => u.SysUserId == sysUserId).Id.ToString());
+            }
+            else
+            {
+                return Redirect("Create");
+            }
         }
 
         // GET: Users/Details/5
@@ -58,9 +77,10 @@ namespace Tips.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.SysUserId = _userManager.GetUserId(User);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Home");
             }
             return View(user);
         }
@@ -97,6 +117,7 @@ namespace Tips.Controllers
             {
                 try
                 {
+                    user.SysUserId = _userManager.GetUserId(User);
                     _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
@@ -111,11 +132,12 @@ namespace Tips.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Home");
             }
             return View(user);
         }
 
+        [Authorize(Roles="Admin")]
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -134,6 +156,7 @@ namespace Tips.Controllers
             return View(user);
         }
 
+        [Authorize(Roles="Admin")]
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
