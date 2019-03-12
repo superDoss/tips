@@ -18,11 +18,10 @@ namespace Tips.Models
         [Display(Name = "Full Name")]
         public string fullName { get { return FirstName + " " + LastName; } }       
         public string Email { get; set; }
-        public string Password { get; set; }
         public DateTime CreateDate { get; set; }
         // There is no boolean type in SQLite
-        [Range(0, 1)]
-        public int Admin { get; set; }
+        [ScaffoldColumn(false)]
+        public string SysUserId { get; set; }
 
         public ICollection<Tip> Tips { get; set; }
         public ICollection<TipRating> TipRatings { get; set; }

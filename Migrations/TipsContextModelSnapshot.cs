@@ -102,8 +102,6 @@ namespace Tips.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Admin");
-
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("Email");
@@ -116,7 +114,7 @@ namespace Tips.Migrations
                         .IsRequired()
                         .HasMaxLength(30);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("SysUserId");
 
                     b.HasKey("Id");
 
