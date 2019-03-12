@@ -9,7 +9,7 @@ using Tips.Database;
 namespace Tips.Migrations
 {
     [DbContext(typeof(TipsContext))]
-    [Migration("20190309225543_initDb")]
+    [Migration("20190312173119_initDb")]
     partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,8 @@ namespace Tips.Migrations
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("ImagePath");
+
+                    b.Property<string>("Location");
 
                     b.Property<string>("Title")
                         .IsRequired()
