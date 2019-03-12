@@ -38,14 +38,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-controller="Home">Home</a></li>
-                    <li><a asp-controller="Users">Profile</a></li>
-                    <li><a asp-controller="Tips">My Tips</a></li>
-                    <li><a asp-controller="Stat">Statistics</a></li>
-                    <li><a asp-controller="contact">Contact</a></li>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Users" asp-action="Index">Profile</a></li>
+                    <li><a asp-controller="Tips" asp-action="Index">My Tips</a></li>
+                    <li><a asp-controller="Stat" asp-action="Index">Statistics</a></li>
+                    <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                     @if (User.IsInRole("Admin"))
                     {
-                        <li><a asp-page="/Contact">Management</a></li>
+                        <li><a asp-controller="Management" asp-action="Index">Management</a></li>
                     }
                 </ul>
                  <partial name="_LoginPartial" />
