@@ -18,7 +18,6 @@ namespace Tips.api
     public class TipsController : ControllerBase
     {
         private readonly TipsContext _context;
-
         private readonly UserManager<IdentityUser> _userManager;
 
         public TipsController(TipsContext context,UserManager<IdentityUser> userManager)
