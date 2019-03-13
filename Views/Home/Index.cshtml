@@ -1,6 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<div class="conteiner weatherwidget">
+    <a class="weatherwidget-io" href="https://forecast7.com/he/31d0534d85/israel/" data-label_1="ישראל" data-label_2="מזג אוויר" data-icons="Climacons Animated" data-theme="beige" >ישראל מזג אוויר</a>
+</div>
 
 <header class="jumbotron video-container">
   <video  width="100%" height="350" playsinline loop muted autoplay>
@@ -18,13 +21,14 @@
 <section>
   <div class="row random tips">
     <blockquote>
-      <h3>Random tips:</h3>
+      <h3>Latest tips:</h3>
     </blockquote>
     <div class="col-xs-6 col-md-3">
       <a href="#" class="thumbnail thumb-width">
-        <div class="tip-text">
-          text here
-          Occaecat quis veniam et ad culpa aute pariatur elit.
+        <div class="tip-content-container">
+          <div class="tip-title"></div>
+          <div class="tip-date text-muted"></div>
+          <div class="tip-text"></div>
         </div>
         <canvas id="myCanvas1" width="270" height="400"></canvas>
       </a>
@@ -32,9 +36,10 @@
     </div>
     <div class="col-xs-6 col-md-3">
       <a href="#" class="thumbnail thumb-width">
-        <div class="tip-text">
-          text here
-          Occaecat quis veniam et ad culpa aute pariatur elit.
+        <div class="tip-content-container">
+          <div class="tip-title"></div>
+          <div class="tip-date text-muted"></div>
+          <div class="tip-text"></div>
         </div>
         <canvas id="myCanvas2" width="270" height="400"></canvas>
       </a>
@@ -42,9 +47,10 @@
     </div>
     <div class="col-xs-6 col-md-3">
       <a href="#" class="thumbnail thumb-width">
-        <div class="tip-text">
-          text here
-          Occaecat quis veniam et ad culpa aute pariatur elit.
+        <div class="tip-content-container">
+          <div class="tip-title"></div>
+          <div class="tip-date text-muted"></div>
+          <div class="tip-text"></div>
         </div>
         <canvas id="myCanvas3" width="270" height="400"></canvas>
       </a>
@@ -52,69 +58,15 @@
     </div>
     <div class="col-xs-6 col-md-3">
       <a href="#" class="thumbnail thumb-width">
-        <div class="tip-text">
-          text here
-          Occaecat quis veniam et ad culpa aute pariatur elit.
+        <div class="tip-content-container">
+          <div class="tip-title"></div>
+          <div class="tip-date text-muted"></div>
+          <div class="tip-text"></div>
         </div>
         <canvas id="myCanvas4" width="270" height="400"></canvas>
       </a>
     <input id="tip4-rating" name="input" value="7">
     </div>
-  </div>
-
-  <div class="row random categories">
-    <blockquote>
-      <h3>Random categories:</h3>
-    </blockquote>
-
-    <div class="col-xs-6 col-md-3">
-      <div class="category-container">
-        <a href="#">
-          <h4 class="text-primary">Category Name</h4>
-        </a>
-        <p class="text-muted">
-          category description
-          Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
-          <input id="category1-rating" name="input" value="7">
-        </p>
-      </div>
-    </div> 
-    <div class="col-xs-6 col-md-3">
-      <div class="category-container">
-        <a href="#">
-          <h4 class="text-primary">Category Name</h4>
-        </a>
-        <p class="text-muted">
-          category description
-          Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
-          <input id="category2-rating" name="input" value="7">
-        </p>
-      </div>
-    </div> 
-    <div class="col-xs-6 col-md-3">
-      <div class="category-container">
-        <a href="#">
-          <h4 class="text-primary">Category Name</h4>
-        </a>
-        <p class="text-muted">
-          category description
-          Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
-          <input id="category3-rating" name="input" value="7">
-        </p>
-      </div>
-    </div> 
-    <div class="col-xs-6 col-md-3">
-      <div class="category-container">
-       <a href="#">
-          <h4 class="text-primary">Category Name</h4>
-        </a>
-        <p class="text-muted">
-          category description
-          Sunt id minim ea veniam aute commodo incididunt mollit ex eu nisi sit duis et.
-          <input id="category4-rating" name="input" value="7">
-        </p>
-      </div>
-    </div> 
   </div>
 </section>
 
@@ -129,27 +81,23 @@
     $("#category3-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
     $("#category4-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
 
-    var c = document.getElementById("myCanvas1");
-    var ctx = c.getContext("2d");
-    ctx.fillStyle = "blue";
-    ctx.fillRect(0, 0, c.width, c.height);
-
-    var c = document.getElementById("myCanvas2");
-    var ctx = c.getContext("2d");
-    ctx.fillStyle = "blue";
-    ctx.fillRect(0, 0, c.width, c.height);
-
-    var c = document.getElementById("myCanvas3");
-    var ctx = c.getContext("2d");
-    ctx.fillStyle = "blue";
-    ctx.fillRect(0, 0, c.width, c.height);
-
-    var c = document.getElementById("myCanvas4");
-    var ctx = c.getContext("2d");
-    ctx.fillStyle = "blue";
-    ctx.fillRect(0, 0, c.width, c.height);
-
     $.get("https://localhost:5001/api/tips", function( data ) {
-      console.log(data)
+      let tipTextNodes = document.getElementsByClassName('tip-text')
+      let tipTitleNodes = document.getElementsByClassName('tip-title')
+      let tipDateNodes = document.getElementsByClassName('tip-date')
+      for(let i = 0; i < tipTextNodes.length; i++) {
+        let c = document.getElementById("myCanvas" + (i + 1));
+        let ctx = c.getContext("2d");
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0, 0, c.width, c.height);
+
+        tipDateNodes[i].textContent = data[i].createDate
+        tipTextNodes[i].textContent = data[i].content
+        tipTitleNodes[i].textContent = data[i].title
+      }
     });
+</script>
+
+<script>
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 </script>

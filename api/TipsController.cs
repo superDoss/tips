@@ -28,7 +28,7 @@ namespace Tips.api
         //[Route("api/tips/")]
         public async Task<ActionResult<IEnumerable<Tip>>> GetTips()
         {
-            return await _context.Tips.OrderByDescending(x => x.CreateDate).Take(5).ToListAsync();
+            return await _context.Tips.OrderByDescending(x => x.CreateDate).Take(4).ToListAsync();
         }
 
         [HttpPost("rate")]
