@@ -100,8 +100,14 @@
 
     $("#tip1-rating").on('rating:change', function(event, value, caption) {
         console.log(value);
-        
-        $.post("https://localhost:5001/api/tips/rate", { TipId: tips[0].id ,RateValue: value }, function(data){
+        $.ajax({
+          type: "POST",
+          url: "api/tips/rate",
+          data: JSON.stringify({ TipId: tips[0].id ,RateValue: parseInt(value) }),
+          contentType:"application/json",
+          xhrFields:{
+            withCredentials:true
+          }
         });
     });
 
