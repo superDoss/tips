@@ -3,11 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Tips.api;
 namespace Tips.Models
 {
     public class Tip
     {
+        public Tip()
+        {
+            CreateDate = DateTime.Now;
+        }
+        public Tip(TipCreateReq req)
+        {
+            
+            Title = req.Title;
+            Content = req.Content;
+            //UserId
+            CreateDate = DateTime.Now;
+            ImagePath = req.ImagePath;
+            VideoPath = req.VideoPath;
+            Location = req.Location;
+        }
         public int Id { get; set; }
         [Required, StringLength(200, MinimumLength =2)]
         public string Title { get; set; }
