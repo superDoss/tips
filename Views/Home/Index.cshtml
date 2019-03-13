@@ -70,8 +70,28 @@
   </div>
 </section>
 
+<section>
+  <div class="search">
+    <h3>Search for tip:</h3>
+    <input id="s-user" name="input" type="text" placeholder="By User">
+    <input id="s-category" name="input" type="text" placeholder="By Category">
+    <input id="s-rate" name="input" type="number" placeholder="By Rate">
+    <button id="s-btn"> Search! </button>
+  </div>
+</section>
+
 <script>
     let tips = [];
+
+    document.getElementById("s-btn").addEventListener('click', function(){
+      let user = document.getElementById("s-user").value
+      let rate = document.getElementById("s-rate").value
+      let category = document.getElementById("s-category").value
+
+      .get("https://localhost:5001/api/tips", { Category: category, Username: user, Rate: rate  }, function(data) {
+        console.log(data)
+      })
+    })
 
     $("#tip1-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
     $("#tip2-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
