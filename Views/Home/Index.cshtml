@@ -87,9 +87,19 @@
       let user = document.getElementById("s-user").value
       let rate = document.getElementById("s-rate").value
       let category = document.getElementById("s-category").value
-
-      .get("https://localhost:5001/api/tips", { Category: category, Username: user, Rate: rate  }, function(data) {
-        console.log(data)
+      let data = {};
+      user ? data["user"] = user:null
+      rate ? data["rate"] = rate:null
+      category ? data["category"] = category:null
+      $.ajax({
+        type: "POST",
+        url: "api/tips/search",
+        data: JSON.stringify(data),
+        contentType:"application/json",
+        xhrFields:{
+          withCredentials:true
+        },
+        success:function(data){ChangeTips(data);}
       })
     })
 
@@ -112,6 +122,10 @@
     });
 
     $.get("https://localhost:5001/api/tips", function( data ) {
+      ChangeTips(data)
+    });
+
+    function ChangeTips(data){
       tips = data
       let tipTextNodes = document.getElementsByClassName('tip-text')
       let tipTitleNodes = document.getElementsByClassName('tip-title')
@@ -128,7 +142,7 @@
           tipTitleNodes[i].textContent = data[i].title
         }
       }
-    });
+    }
 </script>
 
 <script>
