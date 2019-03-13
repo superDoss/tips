@@ -19,9 +19,11 @@ namespace Tips.Areas.Identity
                     options.UseSqlite(
                         context.Configuration.GetConnectionString("TipsIdentityDbContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>()
-                    .AddRoles<IdentityRole>()
-                    .AddEntityFrameworkStores<TipsIdentityDbContext>();
+                services.AddIdentity<IdentityUser, IdentityRole>()
+                    .AddRoleManager<RoleManager<IdentityRole>>()
+                    .AddEntityFrameworkStores<TipsIdentityDbContext>()
+                    .AddDefaultUI()
+                    .AddDefaultTokenProviders();
             });
         }
     }

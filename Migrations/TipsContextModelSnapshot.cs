@@ -44,6 +44,8 @@ namespace Tips.Migrations
 
                     b.Property<string>("ImagePath");
 
+                    b.Property<string>("Location");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200);

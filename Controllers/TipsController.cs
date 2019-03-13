@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,20 +13,40 @@ using Tweetinvi;
 
 namespace Tips.Controllers
 {
+    [Authorize]
     public class TipsController : Controller
     {
         private readonly TipsContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public TipsController(TipsContext context)
+        public TipsController(TipsContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Tips
+        [Authorize(Roles="Admin")]
         public async Task<IActionResult> Index()
         {
             var tipsContext = _context.Tips.Include(t => t.User);
             return View(await tipsContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> MyTips()
+        { 
+            var sysUserId = _userManager.GetUserId(User);
+            var userId = _context.Users.FirstOrDefault(u => u.SysUserId == sysUserId)?.Id; 
+            if (userId != null)
+            {
+                var tipsContext = _context.Tips.Where(t => t.UserId == userId).Include(t => t.User);
+                return View("index", await tipsContext.ToListAsync());
+            }
+            else
+            {
+                return RedirectToAction("Create", "Users");
+            }       
+            
         }
 
         // GET: Tips/Details/5
@@ -58,15 +80,16 @@ namespace Tips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,UserId,CreateDate,ImagePath,VideoPath")] Tip tip)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,UserId,ImagePath,VideoPath,Location")] Tip tip)
         {
             if (ModelState.IsValid)
             {
+                tip.CreateDate = DateTime.Now;
                 _context.Add(tip);
                 await _context.SaveChangesAsync();
 
                 Tweet.PublishTweet($"{tip.Title}: {tip.Content}\nhttps://localhost:5001/tips/Details/{tip.Id}");
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyTips));
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "FirstName", tip.UserId);
             return View(tip);
@@ -94,7 +117,7 @@ namespace Tips.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,UserId,CreateDate,ImagePath,VideoPath")] Tip tip)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,UserId,ImagePath,VideoPath")] Tip tip)
         {
             if (id != tip.Id)
             {
@@ -105,6 +128,7 @@ namespace Tips.Controllers
             {
                 try
                 {
+                    tip.CreateDate = DateTime.Now;
                     _context.Update(tip);
                     await _context.SaveChangesAsync();
                 }
@@ -119,7 +143,7 @@ namespace Tips.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyTips));
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "FirstName", tip.UserId);
             return View(tip);
