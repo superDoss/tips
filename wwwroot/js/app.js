@@ -1,11 +1,4 @@
-@{
-    ViewData["Title"] = "Index";
-}
-
-<div id="tips-per-dey"></div>
-<script src="../lib/Highcharts/highcharts.js"></script>
-<script>
-    function renderGraph(res)
+function renderGraph(data)
 {
     var myChart = Highcharts.chart('tips-per-dey', {
         chart: {
@@ -15,7 +8,7 @@
             text: 'TipsPerDay'
         },
         xAxis: {
-            categories: res.data.Dates
+            categories: Data.Dates
         },
         yAxis: {
             title: {
@@ -23,12 +16,11 @@
             }
         },
         series: {
-            data : res.data.Sum
+            data : Data.Sum
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    $.get( "api/stat", renderGraph);
+    $.get( "api/stat", renderGraph(res.data));
 })
-</script>

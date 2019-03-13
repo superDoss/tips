@@ -13,7 +13,7 @@ namespace Tips.api
     public class TipsController : ControllerBase
     {
         private readonly TipsContext _context;
-         public TipsController(TipsContext context)
+        public TipsController(TipsContext context)
         {
             _context = context;
         }
