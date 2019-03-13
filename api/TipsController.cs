@@ -21,13 +21,13 @@ namespace Tips.api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tip>>> GetTips()
         {
-            return await _context.Tips.Take(5).ToListAsync();
+            return await _context.Tips.Take(4).ToListAsync();
         }
 
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<Tip>>> GetTips(TipSearchReq req)
-        {
-            return await _context.Tips.Take(5).ToListAsync();
-        }
+        // [HttpGet("search")]
+        // public async Task<ActionResult<IEnumerable<Tip>>> GetTips(TipSearchReq req)
+        // {
+        //     return await _context.Tips.Take(5).ToListAsync();
+        // }
     }
 }
