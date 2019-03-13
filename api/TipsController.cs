@@ -13,7 +13,7 @@ namespace Tips.api
     public class TipsController : ControllerBase
     {
         private readonly TipsContext _context;
-         public TipsController(TipsContext context)
+        public TipsController(TipsContext context)
         {
             _context = context;
         }
@@ -21,17 +21,7 @@ namespace Tips.api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tip>>> GetTips()
         {
-<<<<<<< HEAD
-            return await _context.Tips.Take(4).ToListAsync();
-        }
-
-        // [HttpGet("search")]
-        // public async Task<ActionResult<IEnumerable<Tip>>> GetTips(TipSearchReq req)
-        // {
-        //     return await _context.Tips.Take(5).ToListAsync();
-        // }
-=======
-            return await _context.Tips.OrderByDescending(x => x.CreateDate).Take(5).ToListAsync();
+            return await _context.Tips.OrderByDescending(x => x.CreateDate).Take(4).ToListAsync();
         }
 
         [HttpGet("search")]
@@ -54,6 +44,5 @@ namespace Tips.api
 
             return await result.OrderByDescending(x => x.CreateDate).Take(5).ToListAsync();
         }
->>>>>>> 7937537dfe79228722c9b7c65952229b04d2a445
     }
 }
