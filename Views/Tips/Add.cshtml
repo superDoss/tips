@@ -1,0 +1,35 @@
+
+@{
+    ViewData["Title"] = "Add New Tip";
+}
+
+<h2>Add New Awesome Tip!!</h2>
+<div class="new-tip form-group">
+    <div>
+        <label class="control-label">Title</label>
+        <input class="form-control" id="s-title" name="input" type="text">
+    </div>
+    <div>
+        <label class="control-label">Content</label>
+        <input class="form-control" id="s-content" name="input" type="text">
+    </div>
+    <div>
+        <label class="control-label">Categories</label>
+        <input class="form-control" id="s-categories" name="input" type="text">
+    </div>
+
+    <hr>
+    <button id="s-btn"> Search! </button>
+</div>
+
+<script>
+   document.getElementById("s-btn").addEventListener('click', function(){
+      let title = document.getElementById("s-title").value
+      let content = document.getElementById("s-content").value
+      let category = document.getElementById("s-categories").value.split(',')
+
+      .get("https://localhost:5001/api/tips/", { Category: category, Username: user, Rate: rate  }, function(data) {
+        console.log(data)
+      })
+    })
+</script>

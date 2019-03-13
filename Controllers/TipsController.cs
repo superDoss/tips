@@ -74,7 +74,10 @@ namespace Tips.Controllers
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "FirstName");
             return View();
         }
-
+        public IActionResult Add()
+        {
+            return View();
+        }
         // POST: Tips/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
