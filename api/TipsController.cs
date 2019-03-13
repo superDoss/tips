@@ -51,8 +51,8 @@ namespace Tips.api
             return Ok();
         }
 
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<Tip>>> GetTips(TipSearchReq req)
+        [HttpPost("search")]
+        public async Task<ActionResult<IEnumerable<Tip>>> SearchTips(TipSearchReq req)
         {
             var result = _context.Tips.AsQueryable();
 
