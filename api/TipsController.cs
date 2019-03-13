@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +16,13 @@ namespace Tips.api
     public class TipsController : ControllerBase
     {
         private readonly TipsContext _context;
-         public TipsController(TipsContext context)
+
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public TipsController(TipsContext context,UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -43,6 +50,26 @@ namespace Tips.api
             
 
             return await result.OrderByDescending(x => x.CreateDate).Take(5).ToListAsync();
+        }
+
+        [HttpPost("create")]
+        public async Task<OkResult> CreateTip(TipCreateReq req)
+        {
+            var tip = new Tip(req);
+            tip.User = FindUser();
+            tip.TipCategories = req.Category.Select(category => _context.TipCategories.FirstOrDefault(ccategory => ccategory.Category.Name == category)).ToList();
+            _context.Add(tip);
+            await _context.SaveChangesAsync();
+
+            return new OkResult();
+        }
+
+        private User FindUser()
+        {
+            var sysUserId = this._userManager.GetUserId(User);
+            var user = _context.Users.FirstOrDefault(u => u.SysUserId == sysUserId);
+            return user;
+
         }
     }
 }
