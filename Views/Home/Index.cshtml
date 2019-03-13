@@ -71,29 +71,37 @@
 </section>
 
 <script>
+    let tips = [];
+
     $("#tip1-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
     $("#tip2-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
     $("#tip3-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
     $("#tip4-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
 
-    $("#category1-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
-    $("#category2-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
-    $("#category3-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
-    $("#category4-rating").rating({min: 0, max: 10, step: 1, stars: 8, showClear: false, showCaption: false, size: 'xs'});
+    $("#tip1-rating").on('rating:change', function(event, value, caption) {
+        console.log(value);
+        
+        $.post("https://localhost:5001/api/tips/rate", { TipId: tips[0].id ,RateValue: value }, function(data){
+
+        });
+    });
 
     $.get("https://localhost:5001/api/tips", function( data ) {
+      tips = data
       let tipTextNodes = document.getElementsByClassName('tip-text')
       let tipTitleNodes = document.getElementsByClassName('tip-title')
       let tipDateNodes = document.getElementsByClassName('tip-date')
       for(let i = 0; i < tipTextNodes.length; i++) {
-        let c = document.getElementById("myCanvas" + (i + 1));
-        let ctx = c.getContext("2d");
-        ctx.fillStyle = "blue";
-        ctx.fillRect(0, 0, c.width, c.height);
+        if (data[i]) {
+          let c = document.getElementById("myCanvas" + (i + 1));
+          let ctx = c.getContext("2d");
+          ctx.fillStyle = "blue";
+          ctx.fillRect(0, 0, c.width, c.height);
 
-        tipDateNodes[i].textContent = data[i].createDate
-        tipTextNodes[i].textContent = data[i].content
-        tipTitleNodes[i].textContent = data[i].title
+          tipDateNodes[i].textContent = data[i].createDate
+          tipTextNodes[i].textContent = data[i].content
+          tipTitleNodes[i].textContent = data[i].title
+        }
       }
     });
 </script>
