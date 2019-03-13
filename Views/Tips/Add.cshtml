@@ -26,10 +26,16 @@
    document.getElementById("s-btn").addEventListener('click', function(){
       let title = document.getElementById("s-title").value
       let content = document.getElementById("s-content").value
-      let category = document.getElementById("s-categories").value.split(',')
+      let categories = document.getElementById("s-categories").value.split(',')
 
-      .get("https://localhost:5001/api/tips/", { Category: category, Username: user, Rate: rate  }, function(data) {
-        console.log(data)
-      })
+        $.ajax({
+          type: "POST",
+          url: "api/tips/create",
+          data: JSON.stringify({ Category: categories, Title: title, Content: content  }),
+          contentType:"application/json",
+          xhrFields:{
+            withCredentials:true
+          }
+        });
     })
 </script>
