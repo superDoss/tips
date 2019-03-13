@@ -33,7 +33,8 @@ namespace Tips.api
 
         [HttpPost("rate")]
         //[Route("api/tips/rate")]
-        public async Task<ActionResult> RateTips(TipRateReq tipRateReq)
+        
+        public async Task<ActionResult> RateTips([FromBody]TipRateReq tipRateReq)
         {
             var sysUserId = _userManager.GetUserId(User);
             TipRating tipRate = new TipRating();
